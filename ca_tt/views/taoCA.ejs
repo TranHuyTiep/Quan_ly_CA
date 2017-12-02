@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="javascript" src="../javascripts/jquery-3.2.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../javascripts/BigInteger.min.js"></script>
+    <script src="../javascripts/ECC.js"></script>
+</head>
+<body>
+    <div class="container">
+            <div class="row">
+                    <div class="col-lg-8">
+                      <h2>Create CA</h2>
+                    </div>
+                    <div class="col-lg-2" >
+                        <h4 style="margin-top: 40px"><a href="/listCa" style="text-decoration: none;" target="_blank">Danh sách CA con</a></h4>
+                    </div>
+                    <div class="col-lg-2">
+                        <h4 style="margin-top: 40px"><a href="/logout" style="text-decoration: none;"  target="_blank">Đăng xuất</a></h4>
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <button type="button" id="create_radom" class="btn btn-primary" style="font-size:10px;margin: 5px 0px">
+                        Radom number
+                    </button>
+                </div>
+                <div class="col-sm-10">
+                    <h4 style=" margin-left: 10px;" id="radom" title="Click make radom number"></h4>
+                </div>
+                <div class="col-sm-1">
+                    <a type="button" id="save" download="r_con.txt" class="btn btn-primary" style="font-size:10px;margin: 5px 0px;display: none">
+                      Lưu lại
+                    </a>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="usr">Identity CA moi:</label>
+                    <input type="text" class="form-control" id="id" placeholder="id">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="usr">Email:</label>
+                    <input type="text" class="form-control" id="email" placeholder="email">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="pwd">Thong tin khac:</label>
+                    <input type="text" class="form-control" id="thongtin" placeholder="Thong tin">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <button type="button" id="submit" class="btn btn-primary" style="font-size:10px;margin: 5px 0px">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+    </div>
+</body>
+<script>
+    $(document).ready( function() {
+
+        var textFile = null
+      function makeTextFile(text) {
+          var data = new Blob([text], {type: 'text/plain'});
+
+          // If we are replacing a previously generated file we need to
+          // manually revoke the object URL to avoid memory leaks.
+          if (textFile !== null) {
+              window.URL.revokeObjectURL(textFile);
+          }
+
+          var textFile = window.URL.createObjectURL(data);
+
+          return textFile;
+      }
+
+        $('#create_radom').click(function () {
+            var text = document.getElementById("radom").innerHTML = bigInt.randBetween(0,curve.n);
+            alert('Lưu lại giá trị ngẫu nhiên !')
+          var url = makeTextFile(text)
+          $('#save').attr("href", url );
+          $('#save').css("display", "block")
+        })
+
+        $('#submit').click(function () {
+            var radom = $('#radom').text()
+            var id = $('#id').val()
+            var email = $('#email').val()
+            var thongtin = $('#thongtin').val()
+            var R = make_keypair(radom).public_key
+            $.ajax({
+                url:"/taoCAcon",
+                type:"post",
+                dataType:"json",
+                data : {R:R,r:radom,id:id,thongtin:thongtin,email:email},
+                success:function (result) {
+                    if(result.user == 'exist'){
+                        alert('CA con đã tồn tại!')
+                    }else{
+                        alert('Tạo Ca thành công!')
+                        window.location.replace("/listCa");
+                    }
+                }
+            })
+        })
+    })
+
+</script>
+</html>

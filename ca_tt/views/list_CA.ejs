@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script language="javascript" src="../javascripts/jquery-3.2.1.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+  <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../stylesheets/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <h2>Danh sách các CA </h2>
+        </div>
+        <div class="col-lg-2" style="width: 12%">
+            <h4 style="margin-top: 40px"><a href="/taoCAcon" style="text-decoration: none;" >Thêm CA</a></h4>
+        </div>
+        <div class="col-lg-2">
+            <h4 style="margin-top: 40px"><a href="/logout" style="text-decoration: none;" >Đăng xuất</a></h4>
+        </div>
+    </div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Identity</th>
+      <th>Thông tin</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%data.forEach(function(user){%>
+    <tr class="<%=user.Identity%>">
+      <td><%=user.Identity%></td>
+      <td><%=user.thong_tin%></td>
+      <td>
+          <i class="fa fa-trash-o  col-sm-1" aria-hidden="true" title="xóa" style="font-size: 20px"></i>
+          <!--<i class="fa fa-plus-circle col-sm-1" aria-hidden="true" title="thêm" style="font-size: 20px"></i>-->
+          <!--<i class="fa fa-pencil col-sm-1" aria-hidden="true" title="sửa" style="font-size: 20px"></i>-->
+      </td>
+
+    </tr>
+    <%})%>
+    </tbody>
+  </table>
+</div>
+</body>
+<script>
+    $(document).ready( function() {
+        $('.fa-trash-o').click(function () {
+            var id = ($(this).parents().parents().attr('class'))
+            $.ajax({
+                url:"/delete",
+                type:"post",
+                dataType:"json",
+                data : {id:id},
+                success:function (result) {
+                    var id = result.id;
+                    $('.'+id).remove();
+                }
+            })
+        })
+    })
+</script>
+</html>
