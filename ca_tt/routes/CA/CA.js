@@ -12,6 +12,7 @@ io = io.listen(3003);
 var sodium = require('libsodium-wrappers')
 
 
+
 var CA = { private_key: bignum('82113988649868749038536556381039178581735922864762864577138058550951916871801'),
             public_key: bignum('952088166760366280905719430296332950941513814007895129239977479325330082369440')}
 
@@ -78,12 +79,18 @@ router.post('/taoCAcon',helper.isLoggedIn, function(req, res, next) {
     db.check_exist_user(id,function (err,result) {
         if(result.length==0){
             db.insert_ca(data,function (err,result) {
+
+                io.sockets.on('connection', function(socket)
+                {
+                  socket.emit('add', { Identity:id});
+                });
+
                 var cert_string = {
                     P:cert.P.toString(),
                     id:cert.id,
                     s:cert.s.toString()
                 }
-        
+                
                 if(result){
                     var data_mail = JSON.stringify(cert_string)
                     var nonce = sodium.to_hex(sodium.randombytes_buf(8))
@@ -104,17 +111,6 @@ router.post('/taoCAcon',helper.isLoggedIn, function(req, res, next) {
                                 })
                             }
                         })
-        
-                    // fs.writeFile('model/file/'+R+'.text',JSON.stringify(cert_string),function (error,result) {
-                    //     if(error==null){
-                    //         send_mail.send_Mail(email,'model/file/'+R+'.text','cert',function (error,response) {
-                    //             if (response){
-                    //                 fs.unlink('model/file/'+R+'.text', function (error,result) {
-                    //                 })
-                    //             }
-                    //         })
-                    //     }
-                    // })
                     res.json(true)
                 }
             })
@@ -127,7 +123,7 @@ router.post('/taoCAcon',helper.isLoggedIn, function(req, res, next) {
 
 
 /* GET  list Ca. */
-router.get('/listCa', function(req, res, next) {
+router.get('/listCa',helper.isLoggedIn, function(req, res, next) {
     db.get_All(function (error,result) {
         if(result){
             res.render('list_CA',{data:result});
@@ -137,15 +133,14 @@ router.get('/listCa', function(req, res, next) {
 
 
 
-router.post('/delete',function (req,res,next) {
+router.post('/delete',helper.isLoggedIn,function (req,res,next) {
     var param = req.body
     var id = param.id
-    
+
     // Add a connect listener
     io.sockets.on('connection', function(socket)
     {
       socket.emit('delete', { Identity:id});
-      
     });
     if(id){
         db.delete_id(id,function (error,result) {

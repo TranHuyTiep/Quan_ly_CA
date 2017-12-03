@@ -15,20 +15,8 @@ var login = require('./routes/Login/login');
 
 var app = express();
 
-
 var io = ca.io
-io.sockets.on('connection', function(socket)
-{
-  db.get_All(function(erro,data){
-    var array = [];
-    data.forEach(function(item){
-      // array.push({'Identity':item.Identity})
-      socket.emit('listCA', {'Identity':item.Identity});
-    })
-    
-  })
-  
-});
+
 
 //set cookie
 app.use(session({
@@ -42,6 +30,25 @@ app.use(session({
   // }
 }))
 
+
+io.sockets.on('connection', function(socket)
+{
+
+  console.log(socket)
+  console.log('aaaaaaaaaaaaaaaaaa')
+  db.get_All(function(erro,data){
+    // var array = [];
+    // data.forEach(function(item){
+    //   // array.push({'Identity':item.Identity})
+    // })
+    for(var i =0 ;i<data.length;i++){
+      socket.emit('listCA', {'Identity':data[i].Identity});
+    }
+    
+  })
+  
+  
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
