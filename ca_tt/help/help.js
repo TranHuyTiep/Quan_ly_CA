@@ -34,7 +34,6 @@ function fullUrl(req,url) {
     }
 }
 
-
 module.exports.isLoggedIn = isLoggedIn
 module.exports.check_login = check_login
 module.exports.generateHash = generateHash

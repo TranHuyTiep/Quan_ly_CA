@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport')
 var helper = require('../../help/help')
 /* GET home page. */
-router.get('/login',helper.check_login, function(req, res, next) {
+router.get(['/','/login'],helper.check_login, function(req, res, next) {
     var url = helper.fullUrl(req,'')
     res.render('login/login',{url:url});
 });

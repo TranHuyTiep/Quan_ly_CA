@@ -8,8 +8,8 @@ var session = require('express-session');
 var passport = require('passport');
 var db = require('./model/db')
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+// var index = require('./routes/index');
+// var users = require('./routes/users');
 var ca = require('./routes/CA/CA');
 var login = require('./routes/Login/login');
 
@@ -30,26 +30,6 @@ app.use(session({
   // }
 }))
 
-
-io.sockets.on('connection', function(socket)
-{
-
-  console.log(socket)
-  console.log('aaaaaaaaaaaaaaaaaa')
-  db.get_All(function(erro,data){
-    // var array = [];
-    // data.forEach(function(item){
-    //   // array.push({'Identity':item.Identity})
-    // })
-    for(var i =0 ;i<data.length;i++){
-      socket.emit('listCA', {'Identity':data[i].Identity});
-    }
-    
-  })
-  
-  
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
@@ -66,8 +46,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', [index,ca,login]);
-app.use('/users', users);
+app.use('/', [ca,login]);
+// app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
