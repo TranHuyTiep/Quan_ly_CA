@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98d1df0b-0e4a-4eb6-b01b-461cf682b103" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_con/app.js" afterPath="$PROJECT_DIR$/ca_con/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_con/model/list_ca.js" afterPath="$PROJECT_DIR$/ca_con/model/list_ca.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_con/views/user/dky_IC.ejs" afterPath="$PROJECT_DIR$/ca_con/views/user/dky_IC.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_con/views/user/header.ejs" afterPath="$PROJECT_DIR$/ca_con/views/user/header.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_tt/app.js" afterPath="$PROJECT_DIR$/ca_tt/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_tt/routes/CA/CA.js" afterPath="$PROJECT_DIR$/ca_tt/routes/CA/CA.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_tt/views/login/login.ejs" afterPath="$PROJECT_DIR$/ca_tt/views/login/login.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_tt/views/taoCA.ejs" afterPath="$PROJECT_DIR$/ca_tt/views/taoCA.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_con/routes/ECC/ECC.js" afterPath="$PROJECT_DIR$/ca_con/routes/ECC/ECC.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_con/routes/index.js" afterPath="$PROJECT_DIR$/ca_con/routes/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ca_con/routes/user/login.js" afterPath="$PROJECT_DIR$/ca_con/routes/user/login.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -84,8 +78,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -138,11 +132,12 @@
       <workItem from="1510390715113" duration="43000" />
       <workItem from="1512244995569" duration="142000" />
       <workItem from="1512295633773" duration="1376000" />
+      <workItem from="1512657027832" duration="43000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9270000" />
+    <option name="totallyTimeSpent" value="9313000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -156,7 +151,7 @@
   <component name="ToolWindowManager">
     <frame x="43" y="30" width="1323" height="736" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28504306" sideWeight="0.49144253" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28974158" sideWeight="0.49144253" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32840723" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
